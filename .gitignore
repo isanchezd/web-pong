@@ -93,3 +93,6 @@ package-lock.json
 
 # Dist files
 dist/
+
+# AI Folders
+.claude/

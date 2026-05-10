@@ -1,21 +1,34 @@
-# Html ping pong
+# Web Pong
 
-A classic ping pong game running on browser
+A classic Pong game for two players on the same keyboard, running in the browser.
+
+Built with TypeScript and bundled with Parcel.
 
 ## Requirements
 
-You need a node.js environment (with the last LTS it´s Ok)
+Node.js 18 LTS or higher.
 
 ## Install
 
-Clone the repository in your local environment and execute:
-
-    $ npm install
+```bash
+npm install
+```
 
 ## Running the project
 
-    $ npm run start
+```bash
+npm run start
+```
 
-## Simple build for production
+## Build for production
 
-    $ npm run build
+```bash
+npm run build
+```
+
+## Controls
+
+| | Player 1 (red, left) | Player 2 (blue, right) |
+|---|---|---|
+| Up | `Q` | `P` |
+| Down | `A` | `;` |
