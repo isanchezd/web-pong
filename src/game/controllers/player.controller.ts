@@ -33,14 +33,14 @@ export class PlayerController {
   }
 
   private _moveLeft() {
-    if (this._player.y + PLAYER_SPEED < (CANVAS_HEIGHT - PLAYER_HEIGHT)) {
-      this._player.y += PLAYER_SPEED;
+    if (this._player.y - PLAYER_SPEED > 0) {
+      this._player.y -= PLAYER_SPEED;
     }
   }
 
   private _moveRight() {
-    if (this._player.y - PLAYER_SPEED > 0) {
-      this._player.y -= PLAYER_SPEED;
+    if (this._player.y + PLAYER_SPEED < (CANVAS_HEIGHT - PLAYER_HEIGHT)) {
+      this._player.y += PLAYER_SPEED;
     }
   }
 
