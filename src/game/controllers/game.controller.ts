@@ -53,6 +53,8 @@ export class GameController {
   }
 
   private _gameLoop(ctx: CanvasRenderingContext2D, player1: Player, player2: Player, ball: Ball): void {
+    this._player1Controller.update();
+    this._player2Controller.update();
     CanvasCleanerHelper.clean(this._canvas);
     this._playerRender.render({
       ctx,

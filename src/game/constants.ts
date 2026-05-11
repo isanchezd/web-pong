@@ -28,11 +28,11 @@ export const COLOR_J2: string = '#0049FF';
 export const COLOR_BALL: string = '#000';
 
 //Keycodes for the control game items
-export const KEY_CODE_UP_J1: number = 81;
-export const KEY_CODE_DOWN_J1: number = 65;
-export const KEY_CODE_UP_J2: number = 80;  
-export const KEY_CODE_DOWN_J2: number = 186;  
-export const KEY_CODE_MOVE_BALL: number = 32;
+export const KEY_CODE_UP_J1: string = 'KeyQ';
+export const KEY_CODE_DOWN_J1: string = 'KeyA';
+export const KEY_CODE_UP_J2: string = 'KeyP';
+export const KEY_CODE_DOWN_J2: string = 'Semicolon';
+export const KEY_CODE_MOVE_BALL: string = 'Space';
 
 
 

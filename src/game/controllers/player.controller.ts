@@ -1,44 +1,49 @@
 import { CANVAS_HEIGHT, PLAYER_HEIGHT, PLAYER_SPEED } from "../constants";
-import { GameItem } from "../class/abstracts/game-item";
 import { Player } from "../class/entities/player";
 
 export class PlayerController {
-  private _keyCodeLeft: number;
-  private _keyCodeRight: number;
+  private _keyCodeUp: string;
+  private _keyCodeDown: string;
   private _player: Player;
+  private _pressedKeys: Set<string> = new Set();
+  private _boundKeyDown: (e: KeyboardEvent) => void;
+  private _boundKeyUp: (e: KeyboardEvent) => void;
 
   public get player(): Player {
     return this._player;
   }
 
-  constructor(player: Player, keyCodeLeft: number, keyCodeRight: number) {
+  constructor(player: Player, keyCodeUp: string, keyCodeDown: string) {
     this._player = player;
-    this._keyCodeLeft = keyCodeLeft;
-    this._keyCodeRight = keyCodeRight;
-    document.addEventListener('keyup', (event: KeyboardEvent) => this._keyUpEventHandle(event));
+    this._keyCodeUp = keyCodeUp;
+    this._keyCodeDown = keyCodeDown;
+    this._boundKeyDown = (e: KeyboardEvent) => this._pressedKeys.add(e.code);
+    this._boundKeyUp = (e: KeyboardEvent) => this._pressedKeys.delete(e.code);
+    document.addEventListener('keydown', this._boundKeyDown);
+    document.addEventListener('keyup', this._boundKeyUp);
   }
 
-  private _keyUpEventHandle(event: KeyboardEvent): void {
-    //TODO: Think a refactor to the switch
-    switch (event.keyCode) {
-      case this._keyCodeLeft:
-        this._moveLeft();
-        break;
-      case this._keyCodeRight:
-        this._moveRight();
-        break;
-      default:
-        break;
+  public update(): void {
+    if (this._pressedKeys.has(this._keyCodeUp)) {
+      this._moveUp();
+    }
+    if (this._pressedKeys.has(this._keyCodeDown)) {
+      this._moveDown();
     }
   }
 
-  private _moveLeft() {
+  public destroy(): void {
+    document.removeEventListener('keydown', this._boundKeyDown);
+    document.removeEventListener('keyup', this._boundKeyUp);
+  }
+
+  private _moveUp() {
     if (this._player.y - PLAYER_SPEED > 0) {
       this._player.y -= PLAYER_SPEED;
     }
   }
 
-  private _moveRight() {
+  private _moveDown() {
     if (this._player.y + PLAYER_SPEED < (CANVAS_HEIGHT - PLAYER_HEIGHT)) {
       this._player.y += PLAYER_SPEED;
     }
