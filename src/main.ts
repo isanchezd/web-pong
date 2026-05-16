@@ -2,7 +2,11 @@ import { Game } from './game/game';
 
 
 window.addEventListener('load', () => {
-    const canvas = <HTMLCanvasElement>document.getElementById('board');
-    const game = new Game(canvas);
+    const boardElement = document.getElementById('board');
+    if (!(boardElement instanceof HTMLCanvasElement)) {
+        throw new Error('Missing required canvas element: #board');
+    }
+
+    const game = new Game(boardElement);
     game.run();
 });
