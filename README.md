@@ -2,7 +2,7 @@
 
 A classic Pong game for two players on the same keyboard, running in the browser.
 
-Built with TypeScript and bundled with Parcel.
+Built with TypeScript and bundled with Vite.
 
 ## Requirements
 
@@ -32,7 +32,7 @@ npm run typecheck
 npm run build
 ```
 
-`npm run build` runs type checks before creating the Parcel bundle.
+`npm run build` runs type checks before creating the Vite bundle.
 
 ## Controls
 
