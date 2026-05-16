@@ -12,6 +12,7 @@ import { PlayerController } from "./player.controller";
 
 export class GameController {
   private _canvas: HTMLCanvasElement;
+  private _ctx: CanvasRenderingContext2D;
   private _player1Controller: PlayerController;
   private _player2Controller: PlayerController;
   private _ballController: BallController;
@@ -19,7 +20,7 @@ export class GameController {
   private _counterJ2Controller: CounterController;
   private _playerRender: PlayerRender;
   private _ballRender: BallRender;
-  private _intervalRef: number;
+  private _intervalRef: ReturnType<typeof setInterval> | null;
 
   constructor(
     canvas: HTMLCanvasElement,
@@ -32,6 +33,12 @@ export class GameController {
     ballRender: BallRender
   ) {
     this._canvas = canvas;
+    const canvasContext = this._canvas.getContext('2d');
+    if (!canvasContext) {
+      throw new Error('Unable to acquire 2D rendering context');
+    }
+
+    this._ctx = canvasContext;
     this._player1Controller = player1Controller;
     this._player2Controller = player2Controller;
     this._ballController = ballController;
@@ -39,23 +46,35 @@ export class GameController {
     this._counterJ2Controller = counterJ2Controller;
     this._playerRender = playerRender;
     this._ballRender = ballRender;
+    this._intervalRef = null;
   }
 
   public start(): void {
+    if (this._intervalRef !== null) {
+      return;
+    }
+
     this._intervalRef = setInterval(() => {
-      this._gameLoop(this._canvas.getContext('2d'), this._player1Controller.player, this._player2Controller.player, this._ballController.ball)
+      this._gameLoop(this._ctx, this._player1Controller.player, this._player2Controller.player, this._ballController.ball)
     }, 1000 / FPS);
 
   }
 
   public stop(): void {
-    clearInterval(this._intervalRef);
+    if (this._intervalRef !== null) {
+      clearInterval(this._intervalRef);
+      this._intervalRef = null;
+    }
   }
 
   private _gameLoop(ctx: CanvasRenderingContext2D, player1: Player, player2: Player, ball: Ball): void {
     this._player1Controller.update();
     this._player2Controller.update();
-    CanvasCleanerHelper.clean(this._canvas);
+    this._ballController.move();
+    BallColissionHandler.handle(this._ballController, this._player1Controller, this._player2Controller);
+    ScoreHandler.handle(this._ballController, this._counterJ1Controller, this._counterJ2Controller);
+
+    CanvasCleanerHelper.clean(ctx);
     this._playerRender.render({
       ctx,
       color: player1.color,
@@ -74,9 +93,6 @@ export class GameController {
       x: ball.x,
       y: ball.y
     });
-    this._ballController.move();
-    BallColissionHandler.handle(this._ballController, this._player1Controller, this._player2Controller);
-    ScoreHandler.handle(this._ballController, this._counterJ1Controller, this._counterJ2Controller);
   }
 
 }
