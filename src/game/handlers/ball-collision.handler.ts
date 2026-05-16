@@ -3,7 +3,7 @@ import { BallController } from "../controllers/ball.controller";
 import { PlayerController } from "../controllers/player.controller";
 
 
-export abstract class BallColissionHandler {
+export abstract class BallCollisionHandler {
 
   public static handle(ballController: BallController, player1Controller: PlayerController, player2Controller: PlayerController) {
         // down

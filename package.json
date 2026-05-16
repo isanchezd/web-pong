@@ -2,16 +2,17 @@
   "name": "web-pong",
   "version": "2.0.0",
   "description": "Web version of the pong game",
-"scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "npm run typecheck",
     "start": "parcel ./src/index.html",
-    "build": "parcel build ./src/index.html"
+    "build": "npm run typecheck && parcel build ./src/index.html"
   },
   "keywords": [
     "videogames"
   ],
   "author": "Iván Sánchez Díaz <sanchez.diaz.ivan@gmail.com>",
-  "license": "ISC",
+  "license": "GPL-3.0-only",
   "devDependencies": {
     "parcel": "~2.16.4",
     "typescript": "~6.0.3"

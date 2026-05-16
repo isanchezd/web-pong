@@ -20,11 +20,19 @@ npm install
 npm run start
 ```
 
+## Type checking
+
+```bash
+npm run typecheck
+```
+
 ## Build for production
 
 ```bash
 npm run build
 ```
+
+`npm run build` runs type checks before creating the Parcel bundle.
 
 ## Controls
 

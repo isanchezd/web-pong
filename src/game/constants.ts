@@ -32,7 +32,5 @@ export const KEY_CODE_UP_J1: string = 'KeyQ';
 export const KEY_CODE_DOWN_J1: string = 'KeyA';
 export const KEY_CODE_UP_J2: string = 'KeyP';
 export const KEY_CODE_DOWN_J2: string = 'Semicolon';
-export const KEY_CODE_MOVE_BALL: string = 'Space';
-
 
 

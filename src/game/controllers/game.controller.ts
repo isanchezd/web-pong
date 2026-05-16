@@ -1,7 +1,7 @@
 import { Ball } from "../class/entities/ball";
 import { Player } from "../class/entities/player";
 import { FPS } from "../constants";
-import { BallColissionHandler } from "../handlers/ball-colission.handler";
+import { BallCollisionHandler } from "../handlers/ball-collision.handler";
 import { ScoreHandler } from "../handlers/score-handler";
 import { CanvasCleanerHelper } from "../helpers/canvas-cleaner.helper";
 import { BallRender } from "../renders/ball.render";
@@ -71,7 +71,7 @@ export class GameController {
     this._player1Controller.update();
     this._player2Controller.update();
     this._ballController.move();
-    BallColissionHandler.handle(this._ballController, this._player1Controller, this._player2Controller);
+    BallCollisionHandler.handle(this._ballController, this._player1Controller, this._player2Controller);
     ScoreHandler.handle(this._ballController, this._counterJ1Controller, this._counterJ2Controller);
 
     CanvasCleanerHelper.clean(ctx);
