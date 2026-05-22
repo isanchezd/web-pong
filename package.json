@@ -13,6 +13,9 @@
   ],
   "author": "Iván Sánchez Díaz <sanchez.diaz.ivan@gmail.com>",
   "license": "GPL-3.0-only",
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
   "devDependencies": {
     "vite": "~7.2.0",
     "typescript": "~6.0.3"

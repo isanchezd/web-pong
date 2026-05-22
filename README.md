@@ -6,7 +6,7 @@ Built with TypeScript and bundled with Vite.
 
 ## Requirements
 
-Node.js 18 LTS or higher.
+Node.js `^20.19.0` or `>=22.12.0`.
 
 ## Install
 
@@ -25,6 +25,14 @@ npm run start
 ```bash
 npm run typecheck
 ```
+
+## Tests
+
+```bash
+npm test
+```
+
+`npm test` currently runs TypeScript type checking.
 
 ## Build for production
 
