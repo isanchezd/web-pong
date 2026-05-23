@@ -1,13 +1,12 @@
-import { Render } from "../class/abstracts/render";
-import { PLAYER_HEIGHT, PLAYER_WIDTH } from "../constants";
-import { RenderContext } from "../interfaces/render-context.interface";
+import { Render } from "../interfaces/render";
+import { RectRenderContext } from "../interfaces/render-context";
 
-export class PlayerRender implements Render {
+export class PlayerRender implements Render<RectRenderContext> {
 
-    public render(context: RenderContext): void {
+    public render(context: RectRenderContext): void {
         context.ctx.beginPath();
         context.ctx.fillStyle = context.color;
-        context.ctx.fillRect(context.x, context.y, PLAYER_WIDTH, PLAYER_HEIGHT);
+        context.ctx.fillRect(context.x, context.y, context.width, context.height);
         context.ctx.closePath();
     }
 }

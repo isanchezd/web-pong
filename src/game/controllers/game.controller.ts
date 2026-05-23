@@ -96,19 +96,24 @@ export class GameController {
       ctx,
       color: player1.color,
       x: player1.x,
-      y: player1.y
+      y: player1.y,
+      width: player1.width,
+      height: player1.height
     });
     this._playerRender.render({
       ctx,
       color: player2.color,
       x: player2.x,
-      y: player2.y
+      y: player2.y,
+      width: player2.width,
+      height: player2.height
     });
     this._ballRender.render({
       ctx,
       color: ball.color,
       x: ball.x,
-      y: ball.y
+      y: ball.y,
+      radius: ball.radius
     });
   }
 
