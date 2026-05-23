@@ -37,11 +37,11 @@ export class PlayerController {
     document.removeEventListener('keyup', this._boundKeyUp);
   }
 
-  private _moveUp() {
+  private _moveUp(): void {
     this._player.y = Math.max(0, this._player.y - PLAYER_SPEED);
   }
 
-  private _moveDown() {
+  private _moveDown(): void {
     this._player.y = Math.min(CANVAS_HEIGHT - PLAYER_HEIGHT, this._player.y + PLAYER_SPEED);
   }
 

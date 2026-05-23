@@ -5,7 +5,7 @@ import { PlayerController } from "../controllers/player.controller";
 
 export abstract class BallCollisionHandler {
 
-  public static handle(ballController: BallController, player1Controller: PlayerController, player2Controller: PlayerController) {
+  public static handle(ballController: BallController, player1Controller: PlayerController, player2Controller: PlayerController): void {
         // down
         if (ballController.ball.y + ballController.ball.radius >= CANVAS_HEIGHT) {
           ballController.ball.y = CANVAS_HEIGHT - ballController.ball.radius;

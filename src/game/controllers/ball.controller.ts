@@ -14,12 +14,12 @@ export class BallController {
     this._ball = ball;
   }
 
-  public move() {
+  public move(): void {
     this._ball.x += this.xSpeed;
     this._ball.y += this.ySpeed;
   }
 
-  public reset() {
+  public reset(): void {
     this._ball.x = X_BALL;
     this._ball.y = Y_BALL;
   }

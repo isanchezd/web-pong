@@ -4,7 +4,7 @@ import { CounterController } from "../controllers/counter.controller";
 
 export abstract class ScoreHandler {
 
-  public static handle(ballController: BallController, counterJ1Controller: CounterController, counterJ2Controller: CounterController) {
+  public static handle(ballController: BallController, counterJ1Controller: CounterController, counterJ2Controller: CounterController): void {
     if (ballController.ball.x + ballController.ball.radius < 0) {
       counterJ2Controller.updateCounter();
       ballController.reset();

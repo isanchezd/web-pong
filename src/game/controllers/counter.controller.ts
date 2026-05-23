@@ -11,12 +11,12 @@ export class CounterController {
   constructor(domReference: HTMLElement) {
     this._counter = new Counter();
     this._domCounterRef = domReference;
-    this._domCounterRef.innerText = this._counter.point.toString();
+    this._domCounterRef.textContent = this._counter.point.toString();
   }
 
-  public updateCounter() {
+  public updateCounter(): void {
     this._counter.point += 1;
-    this._domCounterRef.innerText = this._counter.point.toString();
+    this._domCounterRef.textContent = this._counter.point.toString();
   }
   
 }

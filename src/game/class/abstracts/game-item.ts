@@ -1,5 +1,4 @@
 export abstract class GameItem {
-    //TODO: Think better way to dont expose the properties
     public x: number;
     public y: number
     protected _height: number
