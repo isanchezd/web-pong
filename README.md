@@ -32,7 +32,13 @@ npm run typecheck
 npm test
 ```
 
-`npm test` currently runs TypeScript type checking.
+Runs unit tests with Vitest.
+
+For interactive mode:
+
+```bash
+npm run test:watch
+```
 
 ## Build for production
 

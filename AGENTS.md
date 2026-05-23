@@ -9,7 +9,9 @@
 - Install: `npm install`.
 - Dev server: `npm run start` (`vite`).
 - Main verification for app changes: `npm run build`; it writes ignored artifacts under `dist/`.
-- `npm test` currently runs `npm run typecheck`; there is no configured unit test, lint, or format script.
+- Unit tests: `npm test` (`vitest run`).
+- Interactive tests: `npm run test:watch` (`vitest`).
+- There is no configured lint or format script.
 
 ## Implementation Notes
 - Game constants, canvas size, colors, speeds, and keyboard codes live in `src/game/constants.ts`; controls use `KeyboardEvent.code` values like `KeyQ` and `Semicolon`.
