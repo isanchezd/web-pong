@@ -1,9 +1,8 @@
-import { Ball } from "../class/entities/ball";
-import { Player } from "../class/entities/player";
 import { FPS } from "../constants";
 import { BallCollisionHandler } from "../handlers/ball-collision.handler";
-import { ScoreHandler } from "../handlers/score-handler";
+import { PointWinner, ScoreHandler } from "../handlers/score.handler";
 import { CanvasCleanerHelper } from "../helpers/canvas-cleaner.helper";
+import { GameState } from "../interfaces/game-state";
 import { BallRender } from "../renders/ball.render";
 import { PlayerRender } from "../renders/player.render";
 import { BallController } from "./ball.controller";
@@ -22,6 +21,7 @@ export class GameController {
   private _ballRender: BallRender;
   private _intervalRef: ReturnType<typeof setInterval> | null;
   private _isDestroyed: boolean;
+  private _state: GameState;
 
   constructor(
     canvas: HTMLCanvasElement,
@@ -49,6 +49,15 @@ export class GameController {
     this._ballRender = ballRender;
     this._intervalRef = null;
     this._isDestroyed = false;
+    this._state = {
+      player1: this._player1Controller.player,
+      player2: this._player2Controller.player,
+      ball: this._ballController.ball,
+      score: {
+        j1: this._counterJ1Controller.point,
+        j2: this._counterJ2Controller.point
+      }
+    };
   }
 
   public start(): void {
@@ -61,7 +70,7 @@ export class GameController {
     }
 
     this._intervalRef = setInterval(() => {
-      this._gameLoop(this._ctx, this._player1Controller.player, this._player2Controller.player, this._ballController.ball)
+      this._gameLoop();
     }, 1000 / FPS);
 
   }
@@ -84,37 +93,56 @@ export class GameController {
     this._isDestroyed = true;
   }
 
-  private _gameLoop(ctx: CanvasRenderingContext2D, player1: Player, player2: Player, ball: Ball): void {
+  private _gameLoop(): void {
     this._player1Controller.update();
     this._player2Controller.update();
     this._ballController.move();
     BallCollisionHandler.handle(this._ballController, this._player1Controller, this._player2Controller);
-    ScoreHandler.handle(this._ballController, this._counterJ1Controller, this._counterJ2Controller);
+    const pointWinner = ScoreHandler.handle(this._state.ball);
+    if (pointWinner !== null) {
+      this._applyPoint(pointWinner);
+    }
 
-    CanvasCleanerHelper.clean(ctx);
+    CanvasCleanerHelper.clean(this._ctx);
     this._playerRender.render({
-      ctx,
-      color: player1.color,
-      x: player1.x,
-      y: player1.y,
-      width: player1.width,
-      height: player1.height
+      ctx: this._ctx,
+      color: this._state.player1.color,
+      x: this._state.player1.x,
+      y: this._state.player1.y,
+      width: this._state.player1.width,
+      height: this._state.player1.height
     });
     this._playerRender.render({
-      ctx,
-      color: player2.color,
-      x: player2.x,
-      y: player2.y,
-      width: player2.width,
-      height: player2.height
+      ctx: this._ctx,
+      color: this._state.player2.color,
+      x: this._state.player2.x,
+      y: this._state.player2.y,
+      width: this._state.player2.width,
+      height: this._state.player2.height
     });
     this._ballRender.render({
-      ctx,
-      color: ball.color,
-      x: ball.x,
-      y: ball.y,
-      radius: ball.radius
+      ctx: this._ctx,
+      color: this._state.ball.color,
+      x: this._state.ball.x,
+      y: this._state.ball.y,
+      radius: this._state.ball.radius
     });
+  }
+
+  private _applyPoint(pointWinner: PointWinner): void {
+    if (pointWinner === "J1") {
+      this._state.score.j1 += 1;
+      this._counterJ1Controller.setPoint(this._state.score.j1);
+      this._ballController.xSpeed = -Math.abs(this._ballController.xSpeed);
+    }
+
+    if (pointWinner === "J2") {
+      this._state.score.j2 += 1;
+      this._counterJ2Controller.setPoint(this._state.score.j2);
+      this._ballController.xSpeed = Math.abs(this._ballController.xSpeed);
+    }
+
+    this._ballController.reset();
   }
 
 }

@@ -14,9 +14,13 @@ export class CounterController {
     this._domCounterRef.textContent = this._counter.point.toString();
   }
 
-  public updateCounter(): void {
-    this._counter.point += 1;
+  public setPoint(point: number): void {
+    this._counter.point = point;
     this._domCounterRef.textContent = this._counter.point.toString();
+  }
+
+  public updateCounter(): void {
+    this.setPoint(this._counter.point + 1);
   }
   
 }
