@@ -21,6 +21,7 @@ export class GameController {
   private _playerRender: PlayerRender;
   private _ballRender: BallRender;
   private _intervalRef: ReturnType<typeof setInterval> | null;
+  private _isDestroyed: boolean;
 
   constructor(
     canvas: HTMLCanvasElement,
@@ -47,9 +48,14 @@ export class GameController {
     this._playerRender = playerRender;
     this._ballRender = ballRender;
     this._intervalRef = null;
+    this._isDestroyed = false;
   }
 
   public start(): void {
+    if (this._isDestroyed) {
+      return;
+    }
+
     if (this._intervalRef !== null) {
       return;
     }
@@ -65,6 +71,17 @@ export class GameController {
       clearInterval(this._intervalRef);
       this._intervalRef = null;
     }
+  }
+
+  public destroy(): void {
+    if (this._isDestroyed) {
+      return;
+    }
+
+    this.stop();
+    this._player1Controller.destroy();
+    this._player2Controller.destroy();
+    this._isDestroyed = true;
   }
 
   private _gameLoop(ctx: CanvasRenderingContext2D, player1: Player, player2: Player, ball: Ball): void {

@@ -33,6 +33,7 @@ export interface GameDomElements {
 export class Game{
     private _canvas: HTMLCanvasElement;
     private _gameController: GameController;
+    private _isDestroyed: boolean;
 
     constructor(domElements: GameDomElements) {
         this._canvas = domElements.board;
@@ -47,10 +48,28 @@ export class Game{
           new CounterController(domElements.counterJ2),
           new PlayerRender(),
           new BallRender());
+        this._isDestroyed = false;
     }
 
     public run(): void {
+        if (this._isDestroyed) {
+          return;
+        }
+
         this._gameController.start();
+    }
+
+    public stop(): void {
+      this._gameController.stop();
+    }
+
+    public destroy(): void {
+      if (this._isDestroyed) {
+        return;
+      }
+
+      this._gameController.destroy();
+      this._isDestroyed = true;
     }
     
 }

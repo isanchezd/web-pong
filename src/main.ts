@@ -29,5 +29,9 @@ window.addEventListener('load', () => {
     counterJ2: getRequiredElementById(COUNTER_J2_SELECTOR)
   });
 
+  window.addEventListener('beforeunload', () => {
+    game.destroy();
+  });
+
   game.run();
 });
